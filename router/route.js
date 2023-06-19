@@ -7,6 +7,7 @@ import * as controller_shopping from "../controllers/CartController.js";
 import { registerMail } from '../controllers/mailer.js'
 import Auth, { localVariables } from '../middleware/auth.js';
 import * as controller_gym from "../controllers/gymController.js";
+import * as controller_rutine from "../controllers/rutinaController.js"
 
 
 
@@ -29,6 +30,8 @@ router.route('/products').get(controller_shopping.getProduct)
 router.route('/products-cart').get(controller_shopping.getProductCart)
 router.route('/gym').get(controller_gym.getGym)
 router.route('/gym/:name').get(controller_gym.getInformation)
+router.route('/rutine').get(controller_rutine.getRutine)
+router.route('/rutine/:name').get(controller_rutine.getDescription)
 
 /** PUT Methods */
 router.route('/updateuser').put(Auth, controller.updateUser); // is use to update the user profile
