@@ -36,7 +36,7 @@ export async function verifyUser(req, res, next){
 export async function register(req,res){
 
     try {
-        const { username, password, profile, email } = req.body;        
+        const { username, password, email, role } = req.body;        
 
         // check the existing user
         const existUsername = new Promise((resolve, reject) => {
@@ -67,8 +67,8 @@ export async function register(req,res){
                             const user = new UserModel({
                                 username,
                                 password: hashedPassword,
-                                profile: profile || '',
-                                email
+                                email,
+                                role
                             });
 
                             // return save result as a response
@@ -116,13 +116,16 @@ export async function login(req,res){
                         // create jwt token
                         const token = jwt.sign({
                                         userId: user._id,
-                                        username : user.username
+                                        username : user.username,
+                                        role: user.role
                                     }, ENV.JWT_SECRET , { expiresIn : "24h"});
 
                         return res.status(200).send({
                             msg: "Login Successful...!",
+                            userId: user._id,
                             username: user.username,
-                            token
+                            token,
+                            role: user.role
                         });                                    
 
                     })
@@ -139,6 +142,19 @@ export async function login(req,res){
     }
 }
 
+
+
+
+export async function getUserall(req,res){
+    const User = await UserModel.find();
+
+    if (User) {
+        res.json({ User });
+      } else {
+        res.json({ mensaje: "No hay gimnasios" });
+      }
+
+}
 
 /** GET: http://localhost:8080/api/user/example123 */
 export async function getUser(req,res){
