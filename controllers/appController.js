@@ -144,18 +144,6 @@ export async function login(req,res){
 
 
 
-
-export async function getUserall(req,res){
-    const User = await UserModel.find();
-
-    if (User) {
-        res.json({ User });
-      } else {
-        res.json({ mensaje: "No hay gimnasios" });
-      }
-
-}
-
 /** GET: http://localhost:8080/api/user/example123 */
 export async function getUser(req,res){
     

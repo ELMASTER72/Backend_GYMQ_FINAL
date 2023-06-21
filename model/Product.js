@@ -5,6 +5,7 @@ export const ProductSchema = new mongoose.Schema({
     img: { type: String, required: true },
     inCart: { type: Boolean, default: false },
     price: { type: Number, required: true },
+    category: {type: String, required: true}
 })
 
 export default mongoose.model.Product|| mongoose.model('Product',ProductSchema)
